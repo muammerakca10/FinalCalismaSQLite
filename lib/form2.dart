@@ -14,6 +14,9 @@ class Form2 extends StatefulWidget {
 }
 
 class _Form2State extends State<Form2> {
+  String selectedCity = '';
+  List<String> cities = ['Konya', 'Istanbul', 'Vancouver'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +25,22 @@ class _Form2State extends State<Form2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(widget.name),
-            Text(widget.telephone),
+            DropdownButton(
+              value: selectedCity,
+                hint: Text("Select city"),
+                items: cities
+                    .map((e) => DropdownMenuItem(
+                          child: Text(e),
+                          value: e,
+                        ))
+                    .toList(),
+                onChanged: (selected) {
+                  setState(() {
+                    selectedCity = selected.toString();
+                    print("Selected city : $selectedCity");
+                    
+                  });
+                })
           ],
         ),
       ),
