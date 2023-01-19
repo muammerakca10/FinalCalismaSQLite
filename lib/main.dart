@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'form1.dart';
+import 'form2.dart';
+import 'form3.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,25 +19,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AnaSayfa(),
+      home: const HomePage(),
     );
   }
 }
 
-class AnaSayfa extends StatelessWidget {
-  const AnaSayfa({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Anasayfa")),
+      appBar: AppBar(title: Text("Home Page")),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //SizedBox(height: 30,),
-            ElevatedButton(onPressed: () {}, child: Text("Form1")),
+            ElevatedButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => Form1())));
+            }, child: Text("Form 1")),
             //SizedBox(height: 30,),
-            ElevatedButton(onPressed: () {}, child: Text("Goster")),
+            ElevatedButton(onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Form3(),));
+            }, child: Text("Show")),
           ],
         ),
       ),
