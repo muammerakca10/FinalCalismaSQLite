@@ -16,7 +16,6 @@ class Form2 extends StatefulWidget {
 }
 
 class _Form2State extends State<Form2> {
-  String selectedCity = '';
   List<String> cities = ['Konya', 'Istanbul', 'Vancouver'];
 
   //for Radio Button
@@ -26,6 +25,15 @@ class _Form2State extends State<Form2> {
   bool isSelected2 = false;
   int state = 0;
 
+  String? selectedCity;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    String selectedCity = cities.first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,21 +42,24 @@ class _Form2State extends State<Form2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButton(
-                value: selectedCity,
-                hint: Text("Select city"),
-                items: cities
-                    .map((e) => DropdownMenuItem(
-                          child: Text(e),
-                          value: e,
-                        ))
-                    .toList(),
-                onChanged: (selected) {
-                  setState(() {
-                    selectedCity = selected.toString();
-                    print("Selected city : $selectedCity");
-                  });
-                }),
+            Text("Welcome ${widget.name}"),
+            DropdownButton<String>(
+              value: selectedCity,
+              icon: Icon(Icons.arrow_downward),
+              hint: Text("Select city"),
+              items: cities
+                  .map((e) => DropdownMenuItem(
+                        child: Text(e),
+                        value: e,
+                      ))
+                  .toList(),
+              onChanged: (selected) {
+                setState(() {
+                  selectedCity = selected.toString();
+                  print("Selected city : $selectedCity");
+                });
+              },
+            ),
             Divider(
               color: Colors.grey,
               thickness: 2,
@@ -59,12 +70,12 @@ class _Form2State extends State<Form2> {
             RadioListTile(
               value: 1,
               groupValue: state,
-              onChanged: (select) {setState(() {
-                
-                state = select as int;
-                familyState = "Married";
-                print(select);
-              });
+              onChanged: (select) {
+                setState(() {
+                  state = select as int;
+                  familyState = "Married";
+                  print(select);
+                });
               },
               title: Text("Married"),
               // subtitle: Text("Sub title"),
@@ -76,10 +87,9 @@ class _Form2State extends State<Form2> {
               groupValue: state,
               onChanged: (select) {
                 setState(() {
-                  
-                state = select as int;
-                familyState = "Single";
-                print(select);
+                  state = select as int;
+                  familyState = "Single";
+                  print(select);
                 });
               },
               title: Text("Single"),
@@ -87,10 +97,17 @@ class _Form2State extends State<Form2> {
               activeColor: Colors.purple,
               // secondary: Icon(Icons.add),
             ),
-            ElevatedButton(onPressed: (){}, child: Text("Save")),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),));
-            }, child: Text("Home Page"),)
+            ElevatedButton(onPressed: () {}, child: Text("Save")),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ));
+              },
+              child: Text("Home Page"),
+            )
           ],
         ),
       ),
